@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./RottenToken.sol";
+import "./WineToken.sol";
 
 
 interface IMigratorChef {
@@ -22,18 +22,11 @@ interface IMigratorChef {
     function migrate(IERC20 token) external returns (IERC20);
 }
 
-// ZombieChef is an exact copy of Sushi https://etherscan.io/address/0xc2edad668740f1aa35e4d8f227fb8e17dca888cd
-// we have commented an few lines to remove the dev fund
-// the rest is exactly the same
+// MotherEarth is an exact copy of Rottenswap, whom is an exaxt copy of Sushi:
+// https://etherscan.io/address/0xc2edad668740f1aa35e4d8f227fb8e17dca888cd
+// Have fun reading the code. Hopefully it's bug-free. God bless.
 
-// ZombieChef is the master of Sushi. He can make Sushi and he is a fair guy.
-//
-// Note that it's ownable and the owner wields tremendous power. The ownership
-// will be transferred to a governance smart contract once SUSHI is sufficiently
-// distributed and the community can show to govern itself.
-//
-// Have fun reading it. Hopefully it's bug-free. God bless.
-contract ZombieChef is Ownable {
+contract MotherEarth is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -42,7 +35,7 @@ contract ZombieChef is Ownable {
         uint256 amount;     // How many LP tokens the user has provided.
         uint256 rewardDebt; // Reward debt. See explanation below.
         //
-        // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+        // Rottenswap did some fancy math here. Basically, any point in time, the amount of SUSHIs
         // entitled to a user but is pending to be distributed is:
         //
         //   pending reward = (user.amount * pool.accSushiPerShare) - user.rewardDebt
@@ -63,7 +56,7 @@ contract ZombieChef is Ownable {
     }
 
     // The SUSHI TOKEN!
-    RottenToken public sushi;
+    WineToken public sushi;
 
     // Dev address.
     // rotten swap does not have a dev fund
@@ -92,7 +85,7 @@ contract ZombieChef is Ownable {
     event EmergencyWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
 
     constructor(
-        RottenToken _sushi,
+        WineToken _sushi,
         // rotten swap does not have a dev fund
         // address _devaddr,
         uint256 _sushiPerBlock,
@@ -213,7 +206,7 @@ contract ZombieChef is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    // Deposit LP tokens to ZombieChef for SUSHI allocation.
+    // Deposit LP tokens to MotherEarth for SUSHI allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -228,7 +221,7 @@ contract ZombieChef is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from ZombieChef.
+    // Withdraw LP tokens from MotherEarth.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
